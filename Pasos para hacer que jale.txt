@@ -16,7 +16,8 @@ Paso 5. Correr el siguiente comando en la terminal de electron:
 	
 	Si todo inicia correctamente quiere decir que vamos bien.
 
-Paso 6. Revisar las dependencias de Electron y revisar si se encuentran todas las dependencias usadas en el proyecto de react y en el proyecto de express, si falta una, instalarla.
+Paso 6. Revisar las dependencias de Electron y revisar si se encuentran todas las dependencias usadas en el proyecto de react y en el proyecto de express, si falta una, instalarla,
+		no es necesario el node_modules en Proyecto y ProyectoFront por lo mismo.
 
 Paso 7. Una vez completados todos los pasos, correr el siguiente comando en la terminal de electron:
 	npm run pro:windows para windows.
