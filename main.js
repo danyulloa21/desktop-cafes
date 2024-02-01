@@ -1,6 +1,20 @@
 const { app, BrowserWindow } = require('electron')
-const path = require('path')
-const child_process = require('child_process')
+const express = require('express');
+const path = require('path');
+const expressAppPath = path.join(__dirname, 'src', 'Proyecto', 'app.js');
+const expressApp  = require(expressAppPath)//Dejar este, inicia el proceso del back
+
+const express2 = express();
+
+// expressApp(express2)
+// Utiliza la ruta completa para cargar tu servidor Express
+// require(expressAppPath)(expressApp);
+
+express2.use(express.static(path.join(__dirname, 'src', 'ProyectoFront', 'dist')));
+
+express2.listen(3001, () => {
+  console.log('Express server listening on port 3001');
+})
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -18,7 +32,14 @@ function createWindow() {
     })
 
     // Cambia la URL a la del servicio de React
-    mainWindow.loadURL('http://localhost:5173')
+    mainWindow.loadURL('http://localhost:3001')
+    // const startUrl = url.format({
+    //     protocol: 'http',
+    //     hostname: 'localhost',
+    //     port: 3001,
+    //     pathname: 'src/ProyectoFront/dist/index.html',
+    // });
+    // mainWindow.loadURL(startUrl);
     // mainWindow.webContents.openDevTools()
 }
 
@@ -30,32 +51,13 @@ app.whenReady().then(() => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 
-    try{
-        // Start your React and Express services
-    const serverProcess = child_process.spawn('npm', ['run', 'start'], {
-        cwd: path.join(__dirname, './src/Proyecto'), // Assuming your services are in the parent directory
-        shell: true,
-        stdio: 'inherit'
+     app.on('window-all-closed', function () {
+        
+        app.exit()
+        app.quit()
+
+        if (process.platform !== 'darwin') app.quit()
     })
 
-    const clientProcess = child_process.spawn('npm', ['run', 'dev'], {
-        cwd: path.join(__dirname, './src/ProyectoFront'), // Assuming your services are in the parent directory
-        shell: true,
-        stdio: 'inherit'
-    })
-
-
-        // When the main window is closed, also quit the React and Express services
-        app.on('window-all-closed', function () {
-            serverProcess.kill()
-            clientProcess.kill()
-    
-            if (process.platform !== 'darwin') app.quit()
-        })
-
-
-    }catch(error){
-        console.error('Hubo un error', error)
-    }
     
 })

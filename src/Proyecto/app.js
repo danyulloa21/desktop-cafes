@@ -57,8 +57,8 @@ class App {
 }
 
 // Export the App constructor
-module.exports = {
-  App: App,
+module.exports = function(app){
+  app: App;
 };
 
 // Inicia el servidor

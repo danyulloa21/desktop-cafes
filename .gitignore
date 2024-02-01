@@ -1,0 +1,9 @@
+node_modules/
+
+src/Proyecto/node_modules/
+
+src/ProyectoFront/node_modules
+
+dist/
+
+app/

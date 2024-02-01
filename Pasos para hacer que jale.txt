@@ -1,0 +1,27 @@
+Pasos para hacer que jale (Prefible usar Express y React):
+
+Paso 1. Hacer copy al siguiente repositorio:
+	https://github.com/alexfonfdz/ElectronReactExpress
+	
+	La app de prueba se encuentra en app (No me dejó subirla el github).
+
+Paso 2. En src se encuentra Proyecto(el cual es el back), y ProyectoFront(El cual es el front), son las unicas 2 carpetas que se reemplazarán por las propias, no mover nada más.
+
+Paso 3. Modificar las rutas de ser necesario de expressAppPath del main.js de Electron por el app.js/server.js de nuestro servidor del back.
+
+Paso 4. Hacer el build de react para que se cree el dist del front, este dist va en la ruta que se encuentra en el main.js de Electron en express2.js.
+
+Paso 5. Correr el siguiente comando en la terminal de electron:
+	npm run electron
+	
+	Si todo inicia correctamente quiere decir que vamos bien.
+
+Paso 6. Revisar las dependencias de Electron y revisar si se encuentran todas las dependencias usadas en el proyecto de react y en el proyecto de express, si falta una, instalarla.
+
+Paso 7. Una vez completados todos los pasos, correr el siguiente comando en la terminal de electron:
+	npm run pro:windows para windows.
+	npm run pro:macos para mac(solo se ejecuta con mac)
+	npm run pro:linux para linux(solo se ejecuta con linux)
+
+
+Al final se crea una carpeta llamada dist en Electron con el ejecutable de la app.
