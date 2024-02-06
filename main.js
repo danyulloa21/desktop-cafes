@@ -18,6 +18,9 @@ express2.listen(3001, () => {
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
+        title: 'Departamentos',
+        icon: 'src/img/departamento.png',
+        autoHideMenuBar: true,
         width: 520,
         height: 660,
         resizable: true,
@@ -27,7 +30,11 @@ function createWindow() {
         closable: true,
         webPreferences: {
             nodeIntegration: true,
-            contextIsolation: false
+            contextIsolation: false,
+            devTools: false,
+            session: true,
+            accessibleTitle: 'Departamentos',
+            scrollBounce: true,
         }
     })
 

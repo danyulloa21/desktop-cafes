@@ -1,9 +1,28 @@
 {
   "name": "proyectofront",
-  "productName": "ApliacionChila",
+  "productName": "Departamentos",
   "private": true,
   "version": "0.0.1",
   "main": "main.js",
+  "author": "Alejandro Fontes y Daniel Ulloa",
+  "description": "Proyecto de la materia de Desarrollo de Aplicaciones Web",
+  "license": "MIT", 
+  "build": {
+    "appId": "com.departamentos.app",
+    "productName": "Departamentos",
+    "win": {
+      "target": "nsis",
+      "icon": "src/img/depa.ico"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "src/img/depa.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "src/img/depa.ico"
+    }
+  },
   "scripts": {
     "dev:windows": "electron-builder --win --dir",
     "pro:windows": "electron-builder --win",
@@ -12,7 +31,7 @@
     "dev:macos": "electron-builder --macos --dir",
     "pro:macos": "electron-builder --macos",
     "dev": "electron .",
-    "build": "vite build",
+    "build2": "vite build",
     "dist": "build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
