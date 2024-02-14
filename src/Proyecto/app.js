@@ -2,6 +2,7 @@
 
 const express = require('express');
 const app = express();
+const path = require('path')
 const cors = require('cors'); // Importa el middleware CORS
 const session = require('express-session'); // Importa otros módulos necesarios
 const loginCmd = require('./src/Config/loginController');
@@ -60,6 +61,12 @@ class App {
 module.exports = function(app){
   app: App;
 };
+
+app.use(express.static(path.join(__dirname, '..', 'ProyectoFront', 'dist'))) //modificar para poner donde esté el dist de react, se puede poner el dist en otra parte
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname,  '..', 'ProyectoFront', 'dist', 'index.html')); //poner donde se encuentra el index del dist
+});
 
 // Inicia el servidor
 const PORT = process.env.PORT || 3000;

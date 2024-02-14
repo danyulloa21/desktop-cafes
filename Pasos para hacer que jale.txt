@@ -5,11 +5,28 @@ Paso 1. Hacer copy al siguiente repositorio:
 	
 	La app de prueba se encuentra en app (No me dejó subirla el github).
 
-Paso 2. En src se encuentra Proyecto(el cual es el back), y ProyectoFront(El cual es el front), son las unicas 2 carpetas que se reemplazarán por las propias, no mover nada más.
+Paso 2. En src se encuentra Proyecto(el cual es el back), y ProyectoFront(El cual es el front), son las unicas 2 carpetas que se reemplazarán por las propias, no mover nada más(en lugar de toda la carpeta de react se puede poner solo su dist).
 
 Paso 3. Modificar las rutas de ser necesario de expressAppPath del main.js de Electron por el app.js/server.js de nuestro servidor del back.
 
-Paso 4. Hacer el build de react para que se cree el dist del front, este dist va en la ruta que se encuentra en el main.js de Electron en express2.js.
+Paso 4. Hacer el build de react para que se cree el dist del front, este dist va en la ruta principal del server.js/app.js del back de express, se agrega lo siguiente:
+
+	//busca el dist de electron que es estatico
+	app.use(express.static(path.join(__dirname, '..', 'ProyectoFront', 'dist'))) //modificar para poner donde esté el dist de react, se puede poner el dist en otra parte
+
+	app.get('/', (req, res) => {
+	//Manda a la ruta origen el index.html(dist/build) a la pantalla que se abre con express-electron
+	res.sendFile(path.join(__dirname,  '..', 'ProyectoFront', 'dist', 'index.html')); //poner donde se encuentra el index del dist
+	});
+
+	// Inicia el servidor
+	const PORT = process.env.PORT || 3000;
+	app.listen(PORT, () => {
+	console.log(`Servidor en ejecución en el puerto ${PORT}`);
+	});
+	app.set('json spaces', 2);
+
+
 
 Paso 5. Correr el siguiente comando en la terminal de electron:
 	npm run electron

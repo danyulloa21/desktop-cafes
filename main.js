@@ -1,20 +1,10 @@
 const { app, BrowserWindow } = require('electron')
 const express = require('express');
 const path = require('path');
-const expressAppPath = path.join(__dirname, 'src', 'Proyecto', 'app.js');
-const expressApp  = require(expressAppPath)//Dejar este, inicia el proceso del back
+const expressAppPath = path.join(__dirname, 'src', 'Proyecto', 'app.js');//Poner donde está tu proyecto de express (server.js/app.js)
 
-const express2 = express();
+require(expressAppPath) //inicia express
 
-// expressApp(express2)
-// Utiliza la ruta completa para cargar tu servidor Express
-// require(expressAppPath)(expressApp);
-
-express2.use(express.static(path.join(__dirname, 'src', 'ProyectoFront', 'dist')));
-
-express2.listen(3001, () => {
-  console.log('Express server listening on port 3001');
-})
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
@@ -39,7 +29,7 @@ function createWindow() {
     })
 
     // Cambia la URL a la del servicio de React
-    mainWindow.loadURL('http://localhost:3001')
+    mainWindow.loadURL('http://localhost:3000')
     // const startUrl = url.format({
     //     protocol: 'http',
     //     hostname: 'localhost',
