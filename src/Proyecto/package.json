@@ -1,25 +1,23 @@
 {
+  "name": "dev-back-cafes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "--env-file .env app.js",
+  "scripts": {
+    "test": "jest ./test",
+    "start": "node --env-file .env app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "mysql": "^2.18.1",
-    "mysql2": "^3.6.1",
-    "nodemon": "^3.0.3",
-    "stream-browserify": "^3.0.0",
-    "webpack": "^5.90.0"
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.9.1",
+    "sequelize": "^6.37.1"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.23.9",
-    "babel-loader": "^9.1.3",
-    "webpack-cli": "^4.10.0"
-  },
-  "name": "mi-app-express",
-  "version": "1.0.0",
-  "description": "Mi aplicación ExpressJS",
-  "main": "app.js",
-  "scripts": {
-    "start": "nodemon app.js",
-    "build": "webpack"
+    "jest": "^29.7.0"
   }
 }

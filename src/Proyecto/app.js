@@ -1,76 +1,50 @@
-// app.js
-
+// Importar Express y crear una aplicación
 const express = require('express');
 const app = express();
-const path = require('path')
-const cors = require('cors'); // Importa el middleware CORS
-const session = require('express-session'); // Importa otros módulos necesarios
-const loginCmd = require('./src/Config/loginController');
-const userinfoCmd = require('./src/Inquilino/accountinfoController');
-const debtsCmd = require('./src/Inquilino/userDebts');
-const paymentCmd = require('./src/Inquilino/userPayments');
-const ShowWarningsCmd = require('./src/Inquilino/showWarnings');
-const rulesCmd = require('./src/Inquilino/userRules');
+const cors = require('cors')
+const path = require('path');
 
-// RUTAS ADMIN
+// Serve static content from the `dist` folder
+app.use(express.static(path.join(__dirname, 'frontend')));
 
-const AdminDebtsCmd = require('./src/Admin/Admin-Debts');
-const AdminPaymentsCmd = require('./src/Admin/Admin-Payments');
-const AdminContractsCmd = require('./src/Admin/Admin-Contracts');
-const AdminResidences = require('./src/Admin/Admin-Residences');
-const AdminWarnings = require('./src/Admin/Admin-Warnings');
-const AdminRules = require('./src/Admin/Admin-Rules');
+// Importar las rutas
+const indexRouter = require('./routes/index');
+const colaboradoresRouter = require('./routes/colaborador') 
+const solicitantesRouter = require('./routes/solicitante')
+const solicitudesRouter = require('./routes/solicitud')
+const authenticateRouter = require('./routes/authenticate')
 
-// Configura Express y otros middleware
-app.use(express.json()); // Agrega esta línea para analizar JSON en las solicitudes
+// Configurar middleware
+app.use(express.json()); // Middleware para parsear el cuerpo de las solicitudes en formato JSON
+app.use(express.urlencoded({ extended: false })); // Middleware para parsear los cuerpos de las solicitudes codificados en URL
+app.use(express.static('public')); // Middleware para servir archivos estáticos en la carpeta 'public'
+app.use(cors())
 
+// Configurar las rutas
+app.use('/', indexRouter);
+app.use('/api', colaboradoresRouter);
+app.use('/api', solicitantesRouter);
+app.use('/api', solicitudesRouter);
+app.use('/api', authenticateRouter);
 
-// Configura CORS
-app.use(cors({
-  origin: '*',
-}));
-
-// Otras rutas y configuraciones
-
-app.use('/api', loginCmd);
-app.use('/api', userinfoCmd);
-app.use('/api', debtsCmd);
-app.use('/api', paymentCmd);
-app.use('/api', ShowWarningsCmd);
-app.use('/api', rulesCmd);
-
-
-//Rutas Admin
-
-app.use('/api', AdminDebtsCmd);
-app.use('/api', AdminPaymentsCmd);
-app.use('/api', AdminContractsCmd);
-app.use(('/api'), AdminResidences);
-app.use(('/api'), AdminWarnings);
-app.use(('/api'), AdminRules);
-
-class App {
-  constructor() {
-    // ... constructor logic
-  }
-
-  // ... other methods
-}
-
-// Export the App constructor
-module.exports = function(app){
-  app: App;
-};
-
-app.use(express.static(path.join(__dirname, '..', 'ProyectoFront', 'dist'))) //modificar para poner donde esté el dist de react, se puede poner el dist en otra parte
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname,  '..', 'ProyectoFront', 'dist', 'index.html')); //poner donde se encuentra el index del dist
+// Manejo de errores
+app.use((req, res, next) => {
+    const error = new Error('Recurso no encontrado');
+    error.status = 404;
+    next(error);
 });
 
-// Inicia el servidor
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.send({
+        error: {
+            message: err.message,
+        },
+    });
+});
+
+// Iniciar el servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Servidor en ejecución en el puerto ${PORT}`);
+    console.log(`Servidor Express corriendo en el puerto ${PORT}`);
 });
-app.set('json spaces', 2);

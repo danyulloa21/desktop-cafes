@@ -8,11 +8,11 @@ require(expressAppPath) //inicia express
 
 function createWindow() {
     const mainWindow = new BrowserWindow({
-        title: 'Departamentos',
-        icon: 'src/img/departamento.png',
+        title: 'CAFES',
+        icon: 'src/img/logo.png',
         autoHideMenuBar: true,
-        width: 520,
-        height: 660,
+        width: 2560,
+        height: 1600,
         resizable: true,
         maximizable: true,
         fullscreenable: true,
@@ -23,7 +23,7 @@ function createWindow() {
             contextIsolation: false,
             devTools: false,
             session: true,
-            accessibleTitle: 'Departamentos',
+            accessibleTitle: 'CAFES',
             scrollBounce: true,
         }
     })
